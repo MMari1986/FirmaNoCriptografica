@@ -9,6 +9,7 @@
 	<packaging>pom</packaging>
 	<name>firmanocriptografica</name>
 	<description>Sistema de firma electronica no criptografica</description>
+	
 	<modules>
 		<module>../firmanocriptografica-ear</module>
 		<module>../firmanocriptografica-ejb</module>
