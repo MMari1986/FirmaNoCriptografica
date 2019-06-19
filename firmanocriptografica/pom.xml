@@ -1,0 +1,36 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.unir.tfg</groupId>
+	<artifactId>firmanocriptografica</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>firmanocriptografica</name>
+	<description>Sistema de firma electronica no criptografica</description>
+	<modules>
+		<module>../firmanocriptografica-ear</module>
+		<module>../firmanocriptografica-ejb</module>
+		<module>../firmanocriptografica-web</module>
+	</modules>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+		<version.actual>0.0.1-SNAPSHOT</version.actual>
+
+		<maven.ear.plugin>3.0.1</maven.ear.plugin>
+
+
+		<maven.ejb.plugin>3.0.1</maven.ejb.plugin>
+		<configuration.ejbVersion>3.2</configuration.ejbVersion>
+		<maven.war.plugin>3.2.1</maven.war.plugin>
+
+
+		<!-- maven-compiler-plugin -->
+		<maven.compiler.plugin>3.7.0</maven.compiler.plugin>
+
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+	</properties>
+</project>
