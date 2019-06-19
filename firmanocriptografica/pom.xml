@@ -1,6 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.unir.tfg</groupId>
 	<artifactId>firmanocriptografica</artifactId>
@@ -21,11 +22,9 @@
 
 		<maven.ear.plugin>3.0.1</maven.ear.plugin>
 
-
 		<maven.ejb.plugin>3.0.1</maven.ejb.plugin>
 		<configuration.ejbVersion>3.2</configuration.ejbVersion>
 		<maven.war.plugin>3.2.1</maven.war.plugin>
-
 
 		<!-- maven-compiler-plugin -->
 		<maven.compiler.plugin>3.7.0</maven.compiler.plugin>
