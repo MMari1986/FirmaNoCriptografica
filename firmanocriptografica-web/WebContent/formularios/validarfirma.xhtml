@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition template="/templates/plantilla.xhtml">
+		<ui:define name="content">
+		<h:form id="formValidaCodigoVerificacion">
+			<h:inputHidden id="numeroIdentificacion" value="#{autorizacionBean.numeroIdentificacion}" />
+			<p:panel header="#{msg['verificar.cabecera']} #{autorizacionBean.usuario.nombreUsuario}">
+				<p:panelGrid >			        
+			        <p:row>
+			            <p:column><p:outputLabel value="#{msg['verificar.cve']}" for="codigoVerificacion" /></p:column>
+			             <p:column><p:inputText id="codigoVerificacion" value="#{logicaBean.codigoFirma}" required="true" requiredMessage="#{msg['registro.novacio']}" /></p:column>
+			        </p:row>
+			        <p:row>
+			            <p:column colspan="2" styleClass="nobot centrado">
+			            	<p:captcha id="nobot"  language="#{logicaBean.language}" required="true" requiredMessage="#{msg['registro.nobot']}" theme="clean" />
+			            </p:column>
+			        </p:row>
+					<p:row>
+		            	 <p:column colspan="2" styleClass="centrado padding20">
+			            	<p:commandButton value="#{msg['btn.confirmar']}" action="#{logicaBean.verificarDocumento()}" />
+		            	</p:column>
+		        	</p:row>
+				</p:panelGrid>
+			</p:panel>
+		</h:form>
+		</ui:define>
+	</ui:composition>
+</html>

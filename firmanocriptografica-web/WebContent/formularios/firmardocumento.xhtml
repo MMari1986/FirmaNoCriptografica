@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition template="/templates/plantilla.xhtml">
+		<ui:define name="content">
+			<h:form id="frmFirmaDocumento" enctype="multipart/form-data" style="width:80%;">
+				<p:panel header="#{msg['firma.cabecera']}" styleClass="centrado" style="width:100%;">
+				<br/>
+					<p:dataTable id="documentos"  var="documento" value="#{logicaBean.documentos}" style="width:100%;">
+					    <p:column headerText="#{msg['firma.documento.nombre']}">
+					        <h:outputText value="#{documento.nombreDocumento}" />
+					    </p:column>
+					 
+					    <p:column headerText="#{msg['firma.documento.csv']}">
+					        <h:outputText value="#{documento.codigoSeguroVerificacion}" />
+					    </p:column>
+					 
+					    <p:column headerText="#{msg['firma.documento.opciones']}">
+						   <p:commandLink action="#{logicaBean.delete()}" process="@this">
+							    <p:graphicImage value="/resources/images/descargardoc.png" />
+							</p:commandLink>
+							<p:commandLink action="#{logicaBean.delete()}" process="@this">
+							    <p:graphicImage value="/resources/images/borrardoc.png" />
+							</p:commandLink>
+					    </p:column>
+					</p:dataTable>
+					<br/><br/>
+					<p:panelGrid style="width:100%;">				    
+						
+							<p:row>
+								<p:column colspan="3" styleClass="left">
+									<p:fileUpload update="documentos"  fileUploadListener="#{logicaBean.upload}" 
+												required="true" auto="true" multiple="false"
+												label="#{msg['btn.examinar']}" sizeLimit="4000000" allowTypes="/(\.|\/)(pdf)$/" />
+								</p:column>
+							</p:row>
+							<p:row styleClass="fondoBlanco">
+								<p:column colspan="3" styleClass="fondoBlanco">
+									<p:separator />
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column colspan="2" styleClass="right">
+									<p:outputLabel value="#{msg['firma.codigoFirma']}" for="codigoVerificacion" />
+									<p:inputText id="codigoVerificacion" value="#{logicaBean.codigoFirma}" required="true" requiredMessage="#{msg['registro.novacio']}" />
+								</p:column>
+								<p:column styleClass="left">
+									<p:commandButton value="#{msg['btn.firmar']}" action="#{logicaBean.firmarDocumento()}" update="frmFirmaDocumento"/>
+								</p:column>
+							</p:row>
+						
+					</p:panelGrid>
+				</p:panel>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</html>

@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title></title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title><h:outputText value="#{msg['ap.title']}" /></title>
+	<meta name="description"
+		content="Sistema de Firma Electrónica No Criptográfica" />
+	<meta name="keywords"
+		content="frima electrónica, criptografica, google, authenticator" />
+	<meta name="author" content="MMari1986" />
+	<link rel="shortcut icon" type="image/x-icon" href="#{facesContext.externalContext.requestContextPath}/resources/images/favicon.ico" />
+	<link rel="icon" type="image/x-icon" href="#{facesContext.externalContext.requestContextPath}/resources/images/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/resources/css/default.css" />
+	<link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/resources/css/component.css" />
+	<link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/resources/css/style.css" />
+	<script src="#{facesContext.externalContext.requestContextPath}/resources/js/modernizr.custom.js">_</script>
+	<script src="#{facesContext.externalContext.requestContextPath}/resources/js/cbpHorizontalSlideOutMenu.min.js">_</script>
+	<script src="#{facesContext.externalContext.requestContextPath}/resources/js/funciones.js">_</script>
+	<script src="#{facesContext.externalContext.requestContextPath}/resources/js/calendar-localization.js">_</script>
+	<script src="https://apis.google.com/js/api.js">_</script>
+</h:head>
+<h:body>
+	<div class="container">
+		<f:view transient="true">
+			<p:idleMonitor onactive="sessionTimeOutDialog.show();" timeout="#{session.maxInactiveInterval * 1000}" />
+			<p:dialog header="#{msg['error.sessionTimeOut.header']}" widgetVar="sessionTimeOutDialog" 
+			 modal="true" fixedCenter="true" closable="false" width="400" visible="false">
+			     <h:outputText value="#{msg['error.sessionTimeOut.text']}" />
+			     <input id="confirmBackToLogin" type="button" value="#{msg['error.sessionTimeOut.button']}"
+			        onclick="window.location='#{facesContext.externalContext.requestContextPath}/index.xhtml';" />
+			</p:dialog>
+
+			<div id="contenidoMensajes">
+				<p:growl id="mensajes" showDetail="true" life="5000" />
+				<p:messages id="messages" showDetail="true" autoUpdate="true" />
+			</div>
+
+			<ui:insert name="header">
+				<ui:include src="header.xhtml" />
+			</ui:insert>
+			<ui:insert name="menu">
+				<ui:include src="menu.xhtml" />
+			</ui:insert>
+
+
+			<div id="contenido">
+				<ui:insert name="content">
+					<ui:include src="content.xhtml" />
+				</ui:insert>
+			</div>
+			<ui:insert name="footer">
+				<ui:include src="footer.xhtml" />
+			</ui:insert>
+		</f:view>
+	</div>
+</h:body>
+</html>

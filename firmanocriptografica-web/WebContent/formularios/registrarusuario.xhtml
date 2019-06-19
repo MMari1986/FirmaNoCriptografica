@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:o="http://omnifaces.org/ui"
+	xmlns:of="http://omnifaces.org/functions">
+
+<ui:composition template="/templates/plantilla.xhtml">
+	<ui:define name="content">
+		<h:form id="formRegistro">
+			<p:panel header="#{msg['registro.cabecera']}">
+				<p:panelGrid >
+					<p:row>
+			            <p:column><p:outputLabel value="#{msg['user.numdocumento']}" for="numDocumento" /></p:column>
+			             <p:column><p:inputText id="numDocumento"
+							value="#{logicaBean.usuario.numeroIdentificacion}" required="true"
+							requiredMessage="#{msg['registro.novacio']}"
+							converter="NIFNIEConverter"
+							converterMessage="#{msg['registro.identificacion.novalida']}" /></p:column>
+			        </p:row>
+			        <p:row>
+			            <p:column><p:outputLabel value="#{msg['user.nombre']}" for="nombre" /></p:column>
+			             <p:column><p:inputText id="nombre" value="#{logicaBean.usuario.nombre}" required="true" requiredMessage="#{msg['registro.novacio']}" /></p:column>
+			        </p:row>
+			        <p:row>
+			            <p:column><p:outputLabel value="#{msg['user.apellido1']}" for="apellido1" /></p:column>
+			             <p:column><p:inputText id="apellido1" value="#{logicaBean.usuario.apellido1}" required="true" requiredMessage="#{msg['registro.novacio']}" /></p:column>
+			        </p:row>
+			        <p:row>
+			            <p:column><p:outputLabel value="#{msg['user.apellido2']}" for="apellido2" /></p:column>
+			             <p:column><p:inputText id="apellido2" value="#{logicaBean.usuario.apellido2}" /></p:column>
+			        </p:row>
+			        <p:row>
+			            <p:column><p:outputLabel value="#{msg['user.correoElectronico']}" for="correoElectronico" /></p:column>
+			             <p:column><p:inputText id="correoElectronico" value="#{logicaBean.usuario.correoElectronico}" required="true" requiredMessage="#{msg['registro.novacio']}"/></p:column>
+			        </p:row>
+			        <p:row>
+			            <p:column><p:outputLabel value="#{msg['user.campoExtraValidacion']}" for="campoExtraValidacion" /></p:column>
+			             <p:column><p:inputText id="campoExtraValidacion" value="#{logicaBean.usuario.campoExtraValidacion}" required="true" requiredMessage="#{msg['registro.novacio']}"/></p:column>
+			        </p:row>
+			        <p:row>
+			            <p:column><p:outputLabel value="#{msg['user.fechanacimiento']}" for="fechaNacimiento" /></p:column>
+			             <p:column><p:calendar id="fechaNacimiento"
+							value="#{logicaBean.usuario.fechaNacimiento}" showOn="button"
+							required="true" pattern="dd/MM/yyyy" navigator="true"
+							locale="#{logicaBean.language}" readonlyInput="true" yearRange="c-100:c" /></p:column>
+			        </p:row>
+			        
+			        <p:row>
+					    <p:column colspan="2"><p:separator /></p:column>
+					</p:row>
+					
+					<p:row>
+			            <p:column><p:outputLabel value="#{msg['user.contrasenya']}" for="password" /></p:column>
+			             <p:column><p:password id="password" value="#{logicaBean.usuario.password}" required="true" requiredMessage="#{msg['registro.novacio']}"/></p:column>
+			        </p:row>
+			        <p:row>
+			            <p:column><p:outputLabel value="#{msg['user.rcontrasenya']}" for="passwordValidacion" /></p:column>
+			            <p:column><p:password id="passwordValidacion" value="#{logicaBean.passwordValidacion}" required="true" requiredMessage="#{msg['registro.novacio']}"/></p:column>
+			        </p:row>
+			        <p:row>
+			            <p:column colspan="2" styleClass="nobot centrado">
+			            	<p:captcha id="nobot"  language="#{logicaBean.language}" required="true" requiredMessage="#{msg['registro.nobot']}" theme="clean" />
+			            </p:column>
+			        </p:row>
+			        <p:row>
+			            <p:column colspan="2" styleClass="centrado padding20">
+			            <p:commandButton value="#{msg['btn.siguiente']}"  action="#{logicaBean.registrarUsuario()}" />			            
+			            </p:column>
+			        </p:row>
+				</p:panelGrid>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

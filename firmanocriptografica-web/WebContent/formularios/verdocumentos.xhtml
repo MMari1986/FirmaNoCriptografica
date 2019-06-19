@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<f:metadata>
+		<f:event listener="#{logicaBean.preVerDocumentosUsuario()}" type="preRenderView"></f:event>
+	</f:metadata>
+	<ui:composition template="/templates/plantilla.xhtml">
+		<ui:define name="content">
+			<h:form id="frmFirmaDocumento" enctype="multipart/form-data" style="width:80%;">
+				<p:panel header="#{msg['documentos.cabecera']}" styleClass="centrado" style="width:100%;">
+				<br/>
+					<p:dataTable id="documentos"  var="documento" value="#{logicaBean.documentos}" style="width:100%;">
+					    <p:column headerText="#{msg['documentos.documento.nombre']}">
+					        <h:outputText value="#{documento.nombreDocumento}" />
+					    </p:column>
+					 
+					    <p:column headerText="#{msg['documentos.documento.csv']}">
+					        <h:outputText value="#{documento.codigoSeguroVerificacion}" />
+					    </p:column>
+					 
+					    <p:column headerText="#{msg['documentos.documento.opciones']}">
+						   <p:commandLink action="#{logicaBean.delete()}" process="@this">
+							    <p:graphicImage value="/resources/images/descargardoc.png" />
+							</p:commandLink>
+							<p:commandLink action="#{logicaBean.delete()}" process="@this">
+							    <p:graphicImage value="/resources/images/infofirma.gif" />
+							</p:commandLink>
+					    </p:column>
+					</p:dataTable>
+				</p:panel>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</html>

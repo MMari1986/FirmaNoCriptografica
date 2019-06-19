@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition>
+			<header class="clearfix">
+				<span>#{msg['ap.title']} <span class="bp-icon bp-icon-about" data-content="#{msg['ap.title.data']}‎" /></span>
+				<h1>#{msg['ap.subtitle']}</h1>
+				<nav>
+					<h:form id="formAcceso">			
+						<p:commandLink action="/formularios/login?faces-redirect=true" styleClass="bp-icon bp-icon-drop" title="#{msg['ap.entrar']}" rendered="#{!logicaBean.isSesionIniciada()}">
+							<span>#{msg['ap.entrar']}</span>
+						</p:commandLink>
+						
+						<p:commandLink action="#{logicaBean.terminarAutorizacion()}" rendered="#{logicaBean.isSesionIniciada()}" styleClass="bp-icon bp-icon-archive" title="#{msg['ap.salir']}" >
+							<span>#{msg['ap.salir']}</span>
+						</p:commandLink>
+					</h:form>
+					<h:outputText escape="true" rendered="#{logicaBean.isSesionIniciada()}" value="#{msg['ap.bienvenido']} #{logicaBean.usuario.nombre} #{logicaBean.usuario.apellido1}" />
+					<br/>
+					<h:outputText escape="true" value="[#{logicaBean.direccionIP}] - [#{logicaBean.navegador}]" />
+				</nav>
+			</header>	
+	</ui:composition>
+</html>

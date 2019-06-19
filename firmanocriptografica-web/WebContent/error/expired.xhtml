@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+    <head>
+        <title>Sesión terminada</title>
+        <meta http-equiv="refresh" content="0;url=#{request.contextPath}/index.xhtml?faces-redirect=true" />
+    </head>
+    <body>
+        <h1>Su sesión ha terminado</h1>
+        <h3>Será redirigido a la página de inicio</h3>
+        <p><a href="#{request.contextPath}/index.xhtml?faces-redirect=true">Click aquí si la redirección no funciona</a>.</p>
+    </body>
+</html>
