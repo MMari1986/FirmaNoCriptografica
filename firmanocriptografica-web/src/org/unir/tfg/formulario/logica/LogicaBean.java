@@ -302,8 +302,7 @@ public class LogicaBean implements Serializable {
 	}
 	
 	public void preVerDocumentosUsuario() {
-		Usuario usuarioDAO = fachadaGestionFirmas.buscarUsuarioPorNumeroIdentificacion(usuario.getNumeroIdentificacion());
-		documentos = usuarioDAO.getDocumentos();
+		documentos = fachadaGestionFirmas.getDocumentosUsuario(usuario.getNumeroIdentificacion());
 	}
 	
 

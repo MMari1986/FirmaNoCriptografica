@@ -38,7 +38,7 @@ public class Documento implements Serializable  {
 	private Usuario usuario;
 
 	//bi-directional many-to-one association to JustificanteFirma
-	@OneToMany(mappedBy="documento", fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="documento")
 	private List<JustificanteFirma> justificantesfirmas;
 
 	public Documento() {

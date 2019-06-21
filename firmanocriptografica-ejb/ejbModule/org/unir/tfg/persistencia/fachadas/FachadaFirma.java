@@ -1,5 +1,7 @@
 package org.unir.tfg.persistencia.fachadas;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -22,68 +24,68 @@ public class FachadaFirma {
 
 
 	@PersistenceContext
-	private EntityManager em;
+	private EntityManager entityManager;
 	
 	public Usuario crearUsuario(Usuario usuario){
-		em.persist(usuario);
-		em.flush();
+		entityManager.persist(usuario);
+		entityManager.flush();
 		return usuario;
     }
 	
 	public Documento crearDocumento(Documento documento){
-		em.persist(documento);
-		em.flush();
+		entityManager.persist(documento);
+		entityManager.flush();
 		return documento;
 		
     }
 	
 	public JustificanteFirma crearFirma(JustificanteFirma firma){
-		em.persist(firma);
-		em.flush();
+		entityManager.persist(firma);
+		entityManager.flush();
 		return firma;
     }
 	
 	public void eliminarUsuario(String sid){
-		Usuario usuario = em.find(Usuario.class, sid);
-		em.remove(usuario);
+		Usuario usuario = entityManager.find(Usuario.class, sid);
+		entityManager.remove(usuario);
     }
 	
 	public void eliminarDocumento(String sid){
-		Documento documento = em.find(Documento.class, sid);
-		em.remove(documento);
+		Documento documento = entityManager.find(Documento.class, sid);
+		entityManager.remove(documento);
     }
 	
 	public void eliminarFirma(String sid){
-		JustificanteFirma firma = em.find(JustificanteFirma.class, sid);
-		em.remove(firma);
+		JustificanteFirma firma = entityManager.find(JustificanteFirma.class, sid);
+		entityManager.remove(firma);
     }
 	
 	
 	
 	public Usuario actualizaUsuario(Usuario usuario){
-		return em.merge(usuario);
+		return entityManager.merge(usuario);
     }
 	
 	public Documento actualizaDocumento(Documento documento){
-		return em.merge(documento);
+		return entityManager.merge(documento);
     }
 	
 	public JustificanteFirma actualizaFirma(JustificanteFirma firma){
-		return em.merge(firma);
+		return entityManager.merge(firma);
     }
 	
 	public Usuario obtenerUsuario(String sid){
-		Usuario usuario = em.find(Usuario.class, sid);
+		Usuario usuario = entityManager.find(Usuario.class, sid);
 		return usuario;
     }
 	
 	public Documento obtenerDocumento(String sid){
-		Documento documento = em.find(Documento.class, sid);
+		Documento documento = entityManager.find(Documento.class, sid);
 		return documento;
     }
 	
 	public JustificanteFirma obtenerFirma(String sid){
-		JustificanteFirma justificante = em.find(JustificanteFirma.class, sid);
+		JustificanteFirma justificante = entityManager.find(JustificanteFirma.class, sid);
 		return justificante;
 		
     }	
@@ -91,7 +93,7 @@ public class FachadaFirma {
 	
 	public Usuario buscarUsuarioPorNumeroIdentificacion(String numeroIdentificacion){
 		Usuario usuario = new Usuario();
-		TypedQuery<Usuario> listaUsuarios = em.createQuery(
+		TypedQuery<Usuario> listaUsuarios = entityManager.createQuery(
 				"SELECT u FROM Usuario u WHERE u.numeroIdentificacion=:parametro1", Usuario.class)
 				.setParameter("parametro1", numeroIdentificacion);
 		
@@ -106,7 +108,7 @@ public class FachadaFirma {
 	public Usuario buscarUsuarioPorNombreUsuario(String nombreUsuario){
 		Usuario usuario = new Usuario();
 		logger.info("Buscando usuario: " + nombreUsuario);
-		TypedQuery<Usuario> listaUsuarios = em.createQuery(
+		TypedQuery<Usuario> listaUsuarios = entityManager.createQuery(
 				"SELECT u FROM Usuario u WHERE u.nombreUsuario=:parametro1", Usuario.class)
 				.setParameter("parametro1", nombreUsuario);
 		
@@ -115,5 +117,18 @@ public class FachadaFirma {
 		}
 		return usuario;
     }
+	
+	public List<Documento> getDocumentosUsuario(String numeroIdentificacion){
+		List<Documento> documentos = null;
+		Usuario usuario = null;
+		
+		TypedQuery<Usuario> listaUsuarios = entityManager.createQuery("SELECT u FROM Usuario u JOIN FETCH u.documentos", Usuario.class);
+		 if(listaUsuarios != null && !listaUsuarios.getResultList().isEmpty()) {
+			 usuario = listaUsuarios.getResultList().get(0);
+			 documentos = usuario.getDocumentos();
+		 }
+		
+		return documentos;
+	}
 	
 }
