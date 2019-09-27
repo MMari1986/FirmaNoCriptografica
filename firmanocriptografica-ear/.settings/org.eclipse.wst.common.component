@@ -8,13 +8,13 @@
         <dependent-module archiveName="firmanocriptografica-web.war" deploy-path="/" handle="module:/resource/firmanocriptografica-web/firmanocriptografica-web">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="ojdbc14-10.2.0.4.0.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/com/oracle/ojdbc14/10.2.0.4.0/ojdbc14-10.2.0.4.0.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <dependent-module archiveName="log4j-jboss-logmanager-1.1.6.Final.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/jboss/logmanager/log4j-jboss-logmanager/1.1.6.Final/log4j-jboss-logmanager-1.1.6.Final.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <dependent-module archiveName="jboss-logmanager-1.5.2.Final.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/jboss/logmanager/jboss-logmanager/1.5.2.Final/jboss-logmanager-1.5.2.Final.jar">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="ojdbc14-10.2.0.4.0.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/com/oracle/ojdbc14/10.2.0.4.0/ojdbc14-10.2.0.4.0.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <dependent-module archiveName="jsf-api-2.1.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/javax/faces/jsf-api/2.1/jsf-api-2.1.jar">
