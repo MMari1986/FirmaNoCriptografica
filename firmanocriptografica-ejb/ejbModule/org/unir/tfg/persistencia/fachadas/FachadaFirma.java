@@ -61,16 +61,15 @@ public class FachadaFirma {
     }
 	
 	
-	
-	public Usuario actualizaUsuario(Usuario usuario){
+	public Usuario mergeUsuario(Usuario usuario){
 		return entityManager.merge(usuario);
     }
 	
-	public Documento actualizaDocumento(Documento documento){
+	public Documento  mergeDocumento(Documento documento){
 		return entityManager.merge(documento);
     }
 	
-	public JustificanteFirma actualizaFirma(JustificanteFirma firma){
+	public JustificanteFirma  mergeFirma(JustificanteFirma firma){
 		return entityManager.merge(firma);
     }
 	
@@ -96,7 +95,7 @@ public class FachadaFirma {
 		TypedQuery<Usuario> listaUsuarios = entityManager.createQuery(
 				"SELECT u FROM Usuario u WHERE u.numeroIdentificacion=:parametro1", Usuario.class)
 				.setParameter("parametro1", numeroIdentificacion);
-		
+		 entityManager.flush();
 		 if(listaUsuarios != null && !listaUsuarios.getResultList().isEmpty()) {
 			 usuario = listaUsuarios.getResultList().get(0);
 		 }
@@ -111,7 +110,7 @@ public class FachadaFirma {
 		TypedQuery<Usuario> listaUsuarios = entityManager.createQuery(
 				"SELECT u FROM Usuario u WHERE u.nombreUsuario=:parametro1", Usuario.class)
 				.setParameter("parametro1", nombreUsuario);
-		
+		entityManager.flush();
 		if(listaUsuarios!= null && !listaUsuarios.getResultList().isEmpty()) {
 			usuario = listaUsuarios.getResultList().get(0);
 		}
@@ -122,7 +121,11 @@ public class FachadaFirma {
 		List<Documento> documentos = null;
 		Usuario usuario = null;
 		
-		TypedQuery<Usuario> listaUsuarios = entityManager.createQuery("SELECT u FROM Usuario u JOIN FETCH u.documentos", Usuario.class);
+		TypedQuery<Usuario> listaUsuarios = entityManager.createQuery(
+				"SELECT u FROM Usuario u JOIN FETCH u.documentos WHERE u.numeroIdentificacion=:parametro1", Usuario.class)
+				.setParameter("parametro1", numeroIdentificacion);
+		
+		entityManager.flush();
 		 if(listaUsuarios != null && !listaUsuarios.getResultList().isEmpty()) {
 			 usuario = listaUsuarios.getResultList().get(0);
 			 documentos = usuario.getDocumentos();

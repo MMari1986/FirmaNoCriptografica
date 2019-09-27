@@ -1,20 +1,9 @@
 package org.unir.tfg.persistencia.modelo;
 
 import java.io.Serializable;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 
 /**
@@ -28,7 +17,7 @@ public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="USUARIOS_ID_GENERATOR", sequenceName="TFG_SECUENCIA", allocationSize=1)
+	@SequenceGenerator(name="USUARIOS_ID_GENERATOR", sequenceName="TFG_SECUENCIA", allocationSize = 1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="USUARIOS_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=19)
 	private long id;
@@ -78,11 +67,11 @@ public class Usuario implements Serializable {
 	private boolean validacionPresencial;
 
 	//bi-directional many-to-one association to Documento
-	@OneToMany(mappedBy="usuario")
+	@OneToMany(mappedBy="usuario", fetch = FetchType.LAZY)
 	private List<Documento> documentos;
 
 	//bi-directional many-to-one association to JustificanteFirma
-	@OneToMany(mappedBy="usuario")
+	@OneToMany(mappedBy="usuario", fetch = FetchType.LAZY)
 	private List<JustificanteFirma> justificantesfirmas;
 
 	public Usuario() {

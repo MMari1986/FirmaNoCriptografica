@@ -62,7 +62,7 @@ public class AutorizacionBean implements Serializable {
 				//Guardar la información en la BBDD
 				usuario = fachadaGestionFirmas.buscarUsuarioPorNumeroIdentificacion(usuario.getNumeroIdentificacion());
 				usuario.setCuentaAutorizada(true);
-				usuario = fachadaGestionFirmas.actualizaUsuario(usuario);
+				usuario = fachadaGestionFirmas.mergeUsuario(usuario);
 				utilidades.addMessage(FacesMessage.SEVERITY_INFO, "Autorización", "Cuenta activada correctamente");
 			}else {
 				utilidades.addMessage(FacesMessage.SEVERITY_WARN, "Autorización", "Cuenta NO activada correctamente");

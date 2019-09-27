@@ -10,10 +10,10 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
@@ -41,7 +41,7 @@ public class LogicaBean implements Serializable {
 	private static final long serialVersionUID = -575620218868403586L;
 	private static Logger logger =  Logger.getLogger(LogicaBean.class);
 
-	@EJB
+	@Inject
 	FachadaFirma fachadaGestionFirmas;
 	
 	private Locale locale;
@@ -107,6 +107,10 @@ public class LogicaBean implements Serializable {
 			//Comprobar que no existe ningun usuario con ese número de isentificacion
 			Usuario usuarioDTO = fachadaGestionFirmas.buscarUsuarioPorNumeroIdentificacion(usuario.getNumeroIdentificacion());
 			if(usuarioDTO.getNumeroIdentificacion() == null) {
+				//Asignar nombre de usuario
+				usuario.setNombreUsuario(usuario.getNumeroIdentificacion().toLowerCase() + "@rus");
+				
+				
 				//Generar la imagen de google autenticator a mostrar
 				GoogleAuthenticatorKey key = gAuth.createCredentials();
 				usuario.setClaveSecreta(key.getKey());
@@ -171,7 +175,7 @@ public class LogicaBean implements Serializable {
 				if(!usuarioDAO.getPassword().equalsIgnoreCase(usuario.getPassword())) {
 					//4.- Actualizar la nueva contraseña
 					usuarioDAO.setPassword(usuario.getPassword());
-					fachadaGestionFirmas.actualizaUsuario(usuarioDAO);
+					fachadaGestionFirmas.mergeUsuario(usuarioDAO);
 					utilidades.addMessage(FacesMessage.SEVERITY_INFO, "Cambiar password", "Contraseña actualizada correctamente");
 				}else {
 					utilidades.addMessage(FacesMessage.SEVERITY_WARN, "Cambiar password", "La nueva contraseña coincide con la anterior");
@@ -202,7 +206,7 @@ public class LogicaBean implements Serializable {
 			Usuario usuarioDAO = fachadaGestionFirmas.buscarUsuarioPorNumeroIdentificacion(usuario.getNumeroIdentificacion());
 			usuarioDAO.setClaveSecreta(usuario.getClaveSecreta());
 			usuario.setContenidoQR(usuario.getContenidoQR());
-			fachadaGestionFirmas.actualizaUsuario(usuarioDAO);
+			fachadaGestionFirmas.mergeUsuario(usuarioDAO);
 			utilidades.addMessage(FacesMessage.SEVERITY_INFO, "Generar código", "Clave secreta actualizada con éxito");
 			return Constantes.PAGINA_INICIO;
 		}else {
@@ -240,9 +244,11 @@ public class LogicaBean implements Serializable {
 
 			for(Documento documento: documentos) {
 				
+
 				//CreaR el documento en la BBDD
+				
 				documento.setUsuario(usuarioDAO);
-				fachadaGestionFirmas.crearDocumento(documento);
+				documento = fachadaGestionFirmas.mergeDocumento(documento);
 				
 				//Crear la firma en la BBDD
 				JustificanteFirma firma = new JustificanteFirma();
@@ -252,9 +258,10 @@ public class LogicaBean implements Serializable {
 				firma.setNavegador((String) MDC.get("navegador"));
 				String contenidoJustificante = "Contenido" + usuario.getNombreUsuario() + MDC.get("ip") + MDC.get("navegador");
 				firma.setContenidoJustificante(contenidoJustificante.getBytes());
+				
 				firma.setUsuario(usuarioDAO);
 				firma.setDocumento(documento);
-				fachadaGestionFirmas.crearFirma(firma);
+				fachadaGestionFirmas.mergeFirma(firma);
 			}
 			
 			utilidades.addMessage(FacesMessage.SEVERITY_INFO, "Firmar documentos", "Clave secreta actualizada con éxito");
@@ -288,7 +295,7 @@ public class LogicaBean implements Serializable {
 				utilidades.addMessage(FacesMessage.SEVERITY_WARN, "Modificación", "Valide su usuario mediante el enlace enviado");
 			}
 			utilidades.addMessage(FacesMessage.SEVERITY_INFO, "Modificación", "Modificación realizada correctamente");
-			fachadaGestionFirmas.actualizaUsuario(usuarioDAO);
+			fachadaGestionFirmas.mergeUsuario(usuarioDAO);
 		
 		}catch(Exception e) {
 			e.printStackTrace();

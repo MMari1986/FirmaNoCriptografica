@@ -16,7 +16,7 @@ public class JustificanteFirma implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="JUSTIFICANTESFIRMA_ID_GENERATOR", sequenceName="TFG_SECUENCIA", allocationSize=1)
+	@SequenceGenerator(name="JUSTIFICANTESFIRMA_ID_GENERATOR", sequenceName="TFG_SECUENCIA", allocationSize = 1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="JUSTIFICANTESFIRMA_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=19)
 	private long id;

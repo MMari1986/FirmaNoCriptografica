@@ -12,11 +12,11 @@ import java.util.List;
 @Entity
 @Table(name="DOCUMENTOS")
 @NamedQuery(name="Documento.findAll", query="SELECT d FROM Documento d")
-public class Documento implements Serializable  {
+public class Documento implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="DOCUMENTOS_ID_GENERATOR", sequenceName="TFG_SECUENCIA", allocationSize=1)
+	@SequenceGenerator(name="DOCUMENTOS_ID_GENERATOR", sequenceName="TFG_SECUENCIA", allocationSize = 1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="DOCUMENTOS_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=19)
 	private long id;
@@ -26,7 +26,6 @@ public class Documento implements Serializable  {
 
 	@Lob
 	@Column(nullable=false)
-	@Basic(fetch = FetchType.LAZY)
 	private byte[] contenido;
 
 	@Column(nullable=false, length=127)
@@ -38,7 +37,7 @@ public class Documento implements Serializable  {
 	private Usuario usuario;
 
 	//bi-directional many-to-one association to JustificanteFirma
-	@OneToMany(mappedBy="documento")
+	@OneToMany(mappedBy="documento", fetch = FetchType.LAZY)
 	private List<JustificanteFirma> justificantesfirmas;
 
 	public Documento() {

@@ -15,10 +15,17 @@ import javax.mail.internet.MimeMultipart;
 
 public class Mail {
 
-	private static String url = "smtp.gmail.com";
+	
 	private static String puerto = "587";
-	private static String userFrom = "tfg.unir.mmhc@gmail.com";
-	private static String password = "MMHC1986";
+	
+//	private static String url = "smtp.gmail.com";
+//	private static String userFrom = "tfg.unir.mmhc@gmail.com";
+//	private static String password = "MMARI1986";
+	
+	private static String url = "smtpinterno.uam.es";
+	private static String userFrom = "maria.hernandez@externo.uam.es";
+	private static String password = "asd*6654";
+	
 	private static String descripcionFrom = "Sistema de firma electrónica";	
 
 	public static void main(String[] args) throws Exception {
@@ -45,6 +52,9 @@ public class Mail {
 
 		props.put("mail.smtp.user", userFrom);
 		props.put("mail.smtp.clave", password);
+		
+		props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+		props.put("mail.smtp.socketFactory.fallback", "False");
 
 
 		Session session = Session.getDefaultInstance(props);
@@ -74,7 +84,7 @@ public class Mail {
 
 
 			Transport transport = session.getTransport("smtp");
-			transport.connect("smtp.gmail.com", userFrom, password);
+			transport.connect(url, userFrom, password);
 			transport.sendMessage(message, message.getAllRecipients());
 			transport.close();
 		}
