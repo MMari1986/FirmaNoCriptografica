@@ -10,7 +10,6 @@ import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
 import javax.faces.validator.ValidatorException;
 
-@SuppressWarnings("rawtypes")
 @FacesConverter("NIFNIEConverter")
 public class NIFNIEConverter implements Converter {
 
